@@ -1,0 +1,29 @@
+form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.card-panel {
+  padding: 70px;
+}
+
+.card-panel h2 {
+  margin-top: 0px;
+}
+
+input[type="button"] {
+  margin-top: 50px;
+  background: #2288ee;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+input[type="button"]:hover {
+  background: #1144ee;
+}
+
+input[name="next"] {
+  float: right;
+}
