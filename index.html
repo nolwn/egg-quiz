@@ -11,11 +11,9 @@
       <main>
         <div class="row">
           <div class="col m12">
-            <h1>What kind of egg dish are you?</h1>
-            <div class="card-panel">
-
+            <div class="card-panel" id="question-panel">
               <h2 class="center-align">Tell us who you are</h2>
-              <form class="" action="index.html" method="post">
+              <form class="" action="index.html" method="post" id="main-form">
                 <div class="question-block" id="b0">
                   <label for="name">Your name</label>
                   <input type="text" name="name">
@@ -23,15 +21,16 @@
                   <input type="email" name="email">
                   <label for="age">Your age</label>
                   <input type="number" name="age">
-                  <input type="button" name="prev" value="prev">
-                  <input type="button" name="next" value="next">
                 </div>
               </form>
+              <input type="button" name="prev" value="prev">
+              <input type="button" name="next" value="next">
             </div>
           </div>
         </div>
       </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="bundle.js"></script>
   </body>
 </html>
