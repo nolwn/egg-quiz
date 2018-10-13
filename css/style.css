@@ -6,7 +6,7 @@
   margin-top: 0px;
 }
 
-input[type="button"] {
+input[type="button"], input[type="submit"] {
   margin-top: 50px;
   background: #2288ee;
   color: white;
@@ -15,10 +15,18 @@ input[type="button"] {
   border-radius: 5px;
 }
 
-input[type="button"]:hover {
+input[type="button"]:hover, input[type="submit"]:hover {
   background: #1144ee;
 }
 
 input[name="next"] {
   /* float: right; */
+}
+
+input[type="button"]:disabled {
+  background: gray;
+}
+
+h2 {
+  font-size: 20px;
 }
