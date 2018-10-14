@@ -83,36 +83,5 @@
         "dish" : "Egg Salad"
       }
     ]
-  },
-  {
-    "id" : 3,
-    "type" : "multi-choice",
-    "question" : "What is your primary vice?",
-    "answers" : [
-      {
-        "text" : "I'm a drinker",
-        "dish" : "Pickled Egg"
-      },
-      {
-        "text" : "I'm a gambler",
-        "dish" : "Deviled Egg"
-      },
-      {
-        "text" : "I'm a smoker",
-        "dish" : "French Omlette"
-      },
-      {
-        "text" : "I'm a stoner",
-        "dish" : "Fried Egg"
-      },
-      {
-        "text" : "I haven no vice",
-        "dish" : "Poached Egg"
-      },
-      {
-        "text" : "I can't decide what my biggest vice is",
-        "dish" : "Egg Salad"
-      }
-    ]
   }
 ]

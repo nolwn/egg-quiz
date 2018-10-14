@@ -13,8 +13,10 @@ function nextQuestion(quiz) {
   const nextIndex = advance(quiz);
   const nextHTML = document.getElementById("question-" + nextIndex);
 
+  detectAnswer(quiz, nextIndex - 1);
   clearQuestion();
   handleButtons(quiz, nextIndex);
+  paginate(quiz);
   nextHTML.removeAttribute("hidden");
 }
 
@@ -23,14 +25,16 @@ function prevQuestion(quiz) {
   const prevHTML = document.getElementById("question-" + prevIndex);
 
   clearQuestion();
-  handleButtons(quiz, current);
-  prevIndex.removeAttribute("hidden");
+  handleButtons(quiz, prevIndex);
+  paginate(quiz);
+  prevHTML.removeAttribute("hidden");
 }
 
 function initialize(quiz) {
   const current = getBookmark(quiz);
   const currentHTML = document.getElementById("question-" + current);
   handleButtons(quiz, current);
+  paginate(quiz);
   currentHTML.removeAttribute("hidden");
 }
 
@@ -59,6 +63,18 @@ function goBack(quiz) {
   const current = getBookmark(quiz);
   quiz[current].bookmark = false;
   quiz[current - 1].bookmark = true;
+
+  return current - 1;
+}
+
+function detectAnswer(quiz, index) {
+  const questionHTML = document.getElementById("question-" + index);
+  const question = quiz[index];
+  const input = questionHTML.querySelector("input:checked");
+
+  if (input) question.answer = input.value;
+
+  return !!input;
 }
 
 function clearQuestion() {
@@ -73,6 +89,34 @@ function clearQuestion() {
     }
     n++;
   }
+}
+
+function paginate(quiz) {
+  const pages = document.createElement("div");
+  const oldPages = document.getElementById("pagination");
+  const nextButton = document.querySelector("input[name=\"next\"]");
+  const mainForm = document.getElementById("main-form");
+
+  if (oldPages) mainForm.removeChild(oldPages);
+
+  pages.id = "pagination";
+
+  // Just to prove that I can use these Array functions!
+  quiz.forEach(function(el, i) {
+    let page = document.createElement("span");
+
+    page.classList.add("page-marker");
+    if (el.answer) {
+      page.classList.add("teal");
+      page.classList.add("lighten-1");
+      page.innerText = "✔︎";
+    } else {
+      page.innerText = i + 1;
+    }
+    pages.appendChild(page);
+    mainForm.insertBefore(pages, nextButton);
+  });
+
 }
 
 function handleButtons(quiz, index) {
@@ -104,7 +148,7 @@ const parseQuestion = require("./quiz-parse.js");
 const cycle = require("./cycle.js");
 
 function main() {
-  const quizJSON = "[\n  {\n    \"id\" : 0,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"Which skill would you rather have a mastery of?\",\n    \"answers\" : [\n      {\n        \"text\" : \"Running\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"High wire walking\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"Gourmet cooking\",\n        \"dish\" : \"French Omlette\"\n      },\n      {\n        \"text\" : \"Speed chugging a beer\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I already know everything I want to know\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"I don't know\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  },\n  {\n    \"id\" : 1,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"When are you most productive?\",\n    \"answers\" : [\n      {\n        \"text\" : \"In the morning\",\n        \"dish\" : \"French Omlette\"\n      },\n      {\n        \"text\" : \"In the afternoon\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"In the evening\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm never productive\",\n        \"dish\" : \"Scrambled Egg\"\n      }\n    ]\n  },\n  {\n    \"id\" : 2,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"What is your primary vice?\",\n    \"answers\" : [\n      {\n        \"text\" : \"I'm a drinker\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm a gambler\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"I'm a smoker\",\n        \"dish\" : \"French Omlette\"\n      },\n      {\n        \"text\" : \"I'm a stoner\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"I haven no vice\",\n        \"dish\" : \"Poached Egg\"\n      },\n      {\n        \"text\" : \"I can't decide what my biggest vice is\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  },\n  {\n    \"id\" : 3,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"What is your primary vice?\",\n    \"answers\" : [\n      {\n        \"text\" : \"I'm a drinker\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm a gambler\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"I'm a smoker\",\n        \"dish\" : \"French Omlette\"\n      },\n      {\n        \"text\" : \"I'm a stoner\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"I haven no vice\",\n        \"dish\" : \"Poached Egg\"\n      },\n      {\n        \"text\" : \"I can't decide what my biggest vice is\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  }\n]\n";
+  const quizJSON = "[\n  {\n    \"id\" : 0,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"Which skill would you rather have a mastery of?\",\n    \"answers\" : [\n      {\n        \"text\" : \"Running\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"High wire walking\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"Gourmet cooking\",\n        \"dish\" : \"French Omlette\"\n      },\n      {\n        \"text\" : \"Speed chugging a beer\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I already know everything I want to know\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"I don't know\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  },\n  {\n    \"id\" : 1,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"When are you most productive?\",\n    \"answers\" : [\n      {\n        \"text\" : \"In the morning\",\n        \"dish\" : \"French Omlette\"\n      },\n      {\n        \"text\" : \"In the afternoon\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"In the evening\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm never productive\",\n        \"dish\" : \"Scrambled Egg\"\n      }\n    ]\n  },\n  {\n    \"id\" : 2,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"What is your primary vice?\",\n    \"answers\" : [\n      {\n        \"text\" : \"I'm a drinker\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm a gambler\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"I'm a smoker\",\n        \"dish\" : \"French Omlette\"\n      },\n      {\n        \"text\" : \"I'm a stoner\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"I haven no vice\",\n        \"dish\" : \"Poached Egg\"\n      },\n      {\n        \"text\" : \"I can't decide what my biggest vice is\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  }\n]\n";
   const quizContent = JSON.parse(quizJSON);
   const questionPanel = document.querySelector("#main-form");
   const nextButton = document.querySelector("input[name=\"next\"]");
@@ -112,12 +156,14 @@ function main() {
 
 
   for (let i = 0; i < quizContent.length; i++) {
-    // console.log(quizContent[i]);
     questionPanel.insertBefore(parseQuestion(quizContent[i]), prevButton);
   }
 
   nextButton.addEventListener("click", function() {
     cycle.nextQuestion(quizContent);
+  });
+  prevButton.addEventListener("click", function() {
+    cycle.prevQuestion(quizContent);
   });
   cycle.initialize(quizContent);
 }

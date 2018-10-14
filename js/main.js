@@ -11,12 +11,14 @@ function main() {
 
 
   for (let i = 0; i < quizContent.length; i++) {
-    // console.log(quizContent[i]);
     questionPanel.insertBefore(parseQuestion(quizContent[i]), prevButton);
   }
 
   nextButton.addEventListener("click", function() {
     cycle.nextQuestion(quizContent);
+  });
+  prevButton.addEventListener("click", function() {
+    cycle.prevQuestion(quizContent);
   });
   cycle.initialize(quizContent);
 }

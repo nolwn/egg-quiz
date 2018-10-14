@@ -6,8 +6,23 @@
   margin-top: 0px;
 }
 
+#pagination {
+  display: inline-block;
+}
+.page-marker {
+  color: white;
+  font-size: 15px;
+  display: inline-block;
+  width: 37px;
+  background: #ccc;
+  border-radius: 20px;
+  padding: 8px 0px;
+  margin: 0px 2px;
+  text-align: center;
+}
+
 input[type="button"], input[type="submit"] {
-  margin-top: 50px;
+  margin: 50px 5px;
   background: #2288ee;
   color: white;
   padding: 10px;

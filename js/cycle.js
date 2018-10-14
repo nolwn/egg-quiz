@@ -12,8 +12,10 @@ function nextQuestion(quiz) {
   const nextIndex = advance(quiz);
   const nextHTML = document.getElementById("question-" + nextIndex);
 
+  detectAnswer(quiz, nextIndex - 1);
   clearQuestion();
   handleButtons(quiz, nextIndex);
+  paginate(quiz);
   nextHTML.removeAttribute("hidden");
 }
 
@@ -22,14 +24,16 @@ function prevQuestion(quiz) {
   const prevHTML = document.getElementById("question-" + prevIndex);
 
   clearQuestion();
-  handleButtons(quiz, current);
-  prevIndex.removeAttribute("hidden");
+  handleButtons(quiz, prevIndex);
+  paginate(quiz);
+  prevHTML.removeAttribute("hidden");
 }
 
 function initialize(quiz) {
   const current = getBookmark(quiz);
   const currentHTML = document.getElementById("question-" + current);
   handleButtons(quiz, current);
+  paginate(quiz);
   currentHTML.removeAttribute("hidden");
 }
 
@@ -58,6 +62,18 @@ function goBack(quiz) {
   const current = getBookmark(quiz);
   quiz[current].bookmark = false;
   quiz[current - 1].bookmark = true;
+
+  return current - 1;
+}
+
+function detectAnswer(quiz, index) {
+  const questionHTML = document.getElementById("question-" + index);
+  const question = quiz[index];
+  const input = questionHTML.querySelector("input:checked");
+
+  if (input) question.answer = input.value;
+
+  return !!input;
 }
 
 function clearQuestion() {
@@ -72,6 +88,34 @@ function clearQuestion() {
     }
     n++;
   }
+}
+
+function paginate(quiz) {
+  const pages = document.createElement("div");
+  const oldPages = document.getElementById("pagination");
+  const nextButton = document.querySelector("input[name=\"next\"]");
+  const mainForm = document.getElementById("main-form");
+
+  if (oldPages) mainForm.removeChild(oldPages);
+
+  pages.id = "pagination";
+
+  // Just to prove that I can use these Array functions!
+  quiz.forEach(function(el, i) {
+    let page = document.createElement("span");
+
+    page.classList.add("page-marker");
+    if (el.answer) {
+      page.classList.add("teal");
+      page.classList.add("lighten-1");
+      page.innerText = "✔︎";
+    } else {
+      page.innerText = i + 1;
+    }
+    pages.appendChild(page);
+    mainForm.insertBefore(pages, nextButton);
+  });
+
 }
 
 function handleButtons(quiz, index) {
