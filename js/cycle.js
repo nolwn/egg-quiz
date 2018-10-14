@@ -1,7 +1,9 @@
 module.exports = {
   initialize : initialize,
   nextQuestion : nextQuestion,
-  prevQuestion : prevQuestion
+  prevQuestion : prevQuestion,
+  saveQuiz : saveQuiz,
+  loadQuiz : loadQuiz
 }
 
 /*
@@ -16,6 +18,7 @@ function nextQuestion(quiz) {
   clearQuestion();
   handleButtons(quiz, nextIndex);
   paginate(quiz);
+  saveQuiz(quiz);
   nextHTML.removeAttribute("hidden");
 }
 
@@ -26,6 +29,7 @@ function prevQuestion(quiz) {
   clearQuestion();
   handleButtons(quiz, prevIndex);
   paginate(quiz);
+  saveQuiz(quiz);
   prevHTML.removeAttribute("hidden");
 }
 
@@ -35,6 +39,16 @@ function initialize(quiz) {
   handleButtons(quiz, current);
   paginate(quiz);
   currentHTML.removeAttribute("hidden");
+}
+
+function saveQuiz(quiz) {
+  localStorage.setItem("savedQuiz", JSON.stringify(quiz));
+}
+
+function loadQuiz() {
+  const save = localStorage.getItem("savedQuiz");
+  if (save) return localStorage.getItem("savedQuiz");
+  else return null;
 }
 
 /*

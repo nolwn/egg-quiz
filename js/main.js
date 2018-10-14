@@ -3,7 +3,10 @@ const parseQuestion = require("./quiz-parse.js");
 const cycle = require("./cycle.js");
 
 function main() {
-  const quizJSON = fs.readFileSync("./egg-questions.json", "utf-8");
+  let quizJSON;
+
+  if (localStorage.getItem("savedQuiz")) quizJSON = cycle.loadQuiz();
+  else quizJSON = fs.readFileSync("./egg-questions.json", "utf-8");
   const quizContent = JSON.parse(quizJSON);
   const questionPanel = document.querySelector("#main-form");
   const nextButton = document.querySelector("input[name=\"next\"]");
