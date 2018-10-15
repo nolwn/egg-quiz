@@ -42,6 +42,18 @@ input[type="button"]:disabled {
   background: gray;
 }
 
+h1 {
+  font-size: 42px;
+  margin: 5px 0px 50px 0px;
+}
+
 h2 {
   font-size: 20px;
+}
+
+img {
+  max-width: 250px;
+  display: block;
+  border-radius: 125px;
+  margin: auto;
 }

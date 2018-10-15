@@ -11,7 +11,8 @@ function main() {
   const questionPanel = document.querySelector("#main-form");
   const nextButton = document.querySelector("input[name=\"next\"]");
   const prevButton = document.querySelector("input[name=\"prev\"]");
-
+  const subtButton = document.querySelector("input[type=\"submit\"]");
+  const result = "result.html";
 
   for (let i = 0; i < quizContent.length; i++) {
     questionPanel.insertBefore(parseQuestion(quizContent[i]), prevButton);
@@ -23,6 +24,13 @@ function main() {
   prevButton.addEventListener("click", function() {
     cycle.prevQuestion(quizContent);
   });
+  subtButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    cycle.detectAnswer(quizContent, quizContent.length - 1);
+    cycle.saveQuiz(quizContent);
+    window.location.href = result;
+  });
+
   cycle.initialize(quizContent);
 }
 

@@ -28,14 +28,15 @@ function parseQuestion(question) {
       return null;
   }
 
-  // console.log(questionHTML);
+  // console.log(question);
 
   return questionHTML;
 }
 
 function multiChoice(answers, n, answer = -1) {
-  console.log(answer);
+  // console.log(answer);
   const container = document.createElement("div");
+  container.classList.add("inputs");
 
   for (let i = 0; i < answers.length; i++) {
     const choice = answers[i];
@@ -46,9 +47,17 @@ function multiChoice(answers, n, answer = -1) {
 
     inputHTML.setAttribute("type", "radio");
     inputHTML.setAttribute("name", "question-" + n);
-    inputHTML.setAttribute("value", choice.dish);
-    if (answer > 0 && answer === i)
+    inputHTML.setAttribute("value", i);
+
+    console.log("index: " + i);
+    console.log("stored answer: " + answer);
+
+    if (answer > -1 && answer == i) { // note the `==` for coercion
+      console.log("match");
       inputHTML.setAttribute("checked", "true");
+    } else {
+
+    }
 
     labelText.innerText = choice.text;
 
