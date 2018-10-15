@@ -47,10 +47,8 @@ function multiChoice(answers, n, answer = -1) {
     inputHTML.setAttribute("name", "question-" + n);
     inputHTML.setAttribute("value", i);
 
-    if (answer > -1 && answer == i) { // note the `==` for coercion
+    if (answer > -1 && answer == i) { // `==` for coercion
       inputHTML.setAttribute("checked", "true");
-    } else {
-
     }
 
     labelText.innerText = choice.text;

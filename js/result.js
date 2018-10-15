@@ -4,6 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
   result();
 });
 
+/*
+ *  Gathers the answers out of localStorage and then tallies up the result. The
+ *  potential dishes are baked into the JSON file. The dish that is indicated
+ *  most often is the winner.
+ */
 function result() {
   const questionPanel = document.querySelector("#main-form");
   const quiz = JSON.parse(cycle.loadQuiz());

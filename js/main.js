@@ -8,7 +8,8 @@ function main() {
   if (localStorage.getItem("savedQuiz")) quizJSON = cycle.loadQuiz();
   else quizJSON = fs.readFileSync("./egg-questions.json", "utf-8");
   const quizContent = JSON.parse(quizJSON);
-  const questionPanel = document.querySelector("#main-form");
+  const pageButtons = document.querySelector("#page-buttons");
+  const mainForm = document.querySelector("#main-form");
   const nextButton = document.querySelector("input[name=\"next\"]");
   const prevButton = document.querySelector("input[name=\"prev\"]");
   const subtButton = document.querySelector("input[type=\"submit\"]");
@@ -16,7 +17,7 @@ function main() {
   const result = "result.html";
 
   for (let i = 0; i < quizContent.length; i++) {
-    questionPanel.insertBefore(parseQuestion(quizContent[i]), prevButton);
+    mainForm.insertBefore(parseQuestion(quizContent[i]), pageButtons);
   }
 
   nextButton.addEventListener("click", function() {
