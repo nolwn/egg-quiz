@@ -15,7 +15,6 @@ function parseQuestion(question) {
 
   switch(question.type) {
     case "multi-choice":
-      // console.log(question);
       if (question.answer === undefined)
         questionHTML.appendChild(multiChoice(question.answers, question.id));
       else
@@ -24,7 +23,6 @@ function parseQuestion(question) {
         );
       break;
     default:
-      console.log("Quesion is of an unknown type.");
       return null;
   }
 
@@ -49,11 +47,7 @@ function multiChoice(answers, n, answer = -1) {
     inputHTML.setAttribute("name", "question-" + n);
     inputHTML.setAttribute("value", i);
 
-    console.log("index: " + i);
-    console.log("stored answer: " + answer);
-
     if (answer > -1 && answer == i) { // note the `==` for coercion
-      console.log("match");
       inputHTML.setAttribute("checked", "true");
     } else {
 

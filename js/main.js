@@ -31,7 +31,10 @@ function main() {
     e.preventDefault();
     cycle.detectAnswer(quizContent, quizContent.length - 1);
     cycle.saveQuiz(quizContent);
-    window.location.href = result;
+    const completed = cycle.validate(quizContent);
+    if (completed.total - completed.answered > 2)
+      alert ("Can only skip up to 2 questions. Please go back and answer some more.");
+    else window.location.href = result;
   });
 
   rsetButton.addEventListener("click", function() {

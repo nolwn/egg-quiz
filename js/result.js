@@ -19,7 +19,6 @@ function result() {
 
   for (let i = 0; i < quiz.length; i++) {
     if (quiz[i].answer !== undefined) {
-      console.log(quiz[i].answer);
       const dish = quiz[i].answers[quiz[i].answer].dish;
       if (dish && answers[dish]) {
         answers[dish] += 1;
@@ -49,6 +48,4 @@ function result() {
     location.assign("index.html");
 
   });
-
-  console.log(finalImg);
 }

@@ -3,6 +3,7 @@ module.exports = {
   nextQuestion : nextQuestion,
   prevQuestion : prevQuestion,
   detectAnswer : detectAnswer,
+  validate : validate,
   saveQuiz : saveQuiz,
   loadQuiz : loadQuiz,
   deleteSave : deleteSave
@@ -11,6 +12,7 @@ module.exports = {
 /*
  *  EXPORTED FUNCTIONS
  */
+
 
  function initialize(quiz) {
    const current = getBookmark(quiz);
@@ -50,12 +52,18 @@ function detectAnswer(quiz, index) {
   const input = questionHTML.querySelector("input:checked");
 
   if (input) question.answer = input.value;
-  console.log(input);
-  console.log(index);
-  console.log(question);
-  console.log(questionHTML);
 
   return !!input;
+}
+
+function validate(quiz) {
+  const total = quiz.length;
+  let answered = 0;
+  for (let i = 0; i < total; i++) {
+    if (detectAnswer(quiz, i)) answered++;
+  }
+
+  return {answered : answered, total : total};
 }
 
 function saveQuiz(quiz) {

@@ -83,5 +83,55 @@
         "dish" : "Egg Salad"
       }
     ]
+  },
+  {
+    "id" : 3,
+    "type" : "multi-choice",
+    "question" : "What would you rather do on a Satruday night?",
+    "answers" : [
+      {
+        "text" : "At a bit party",
+        "dish" : "Scrambled Egg"
+      },
+      {
+        "text" : "Planning a bank heist",
+        "dish" : "Deviled Egg"
+      },
+      {
+        "text" : "Smoking cigarettes outside of a cafe",
+        "dish" : "French Omelette"
+      },
+      {
+        "text" : "Sitting on a bar stool",
+        "dish" : "Pickled Egg"
+      }
+    ]
+  },
+  {
+    "id" : 4,
+    "type" : "multi-choice",
+    "question" : "A fight is breaking out, what weapon do you have on hand?",
+    "answers" : [
+      {
+        "text" : "A pool cue",
+        "dish" : "Pickled Egg"
+      },
+      {
+        "text" : "A cooking knife",
+        "dish" : "French Omelette"
+      },
+      {
+        "text" : "A poisoinous syringe",
+        "dish" : "Deviled Egg"
+      },
+      {
+        "text" : "My fists",
+        "dish" : "Hard Boiled Egg"
+      },
+      {
+        "text" : "I do not fight",
+        "dish" : "Egg Salad"
+      }
+    ]
   }
 ]

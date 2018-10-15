@@ -4,6 +4,7 @@ module.exports = {
   nextQuestion : nextQuestion,
   prevQuestion : prevQuestion,
   detectAnswer : detectAnswer,
+  validate : validate,
   saveQuiz : saveQuiz,
   loadQuiz : loadQuiz,
   deleteSave : deleteSave
@@ -12,6 +13,7 @@ module.exports = {
 /*
  *  EXPORTED FUNCTIONS
  */
+
 
  function initialize(quiz) {
    const current = getBookmark(quiz);
@@ -51,12 +53,18 @@ function detectAnswer(quiz, index) {
   const input = questionHTML.querySelector("input:checked");
 
   if (input) question.answer = input.value;
-  console.log(input);
-  console.log(index);
-  console.log(question);
-  console.log(questionHTML);
 
   return !!input;
+}
+
+function validate(quiz) {
+  const total = quiz.length;
+  let answered = 0;
+  for (let i = 0; i < total; i++) {
+    if (detectAnswer(quiz, i)) answered++;
+  }
+
+  return {answered : answered, total : total};
 }
 
 function saveQuiz(quiz) {
@@ -176,7 +184,7 @@ function main() {
   let quizJSON;
 
   if (localStorage.getItem("savedQuiz")) quizJSON = cycle.loadQuiz();
-  else quizJSON = "[\n  {\n    \"id\" : 0,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"Which skill would you rather have a mastery of?\",\n    \"answers\" : [\n      {\n        \"text\" : \"Running\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"High wire walking\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"Gourmet cooking\",\n        \"dish\" : \"French Omelette\"\n      },\n      {\n        \"text\" : \"Speed chugging a beer\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I already know everything I want to know\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"I don't know\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  },\n  {\n    \"id\" : 1,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"When are you most productive?\",\n    \"answers\" : [\n      {\n        \"text\" : \"In the morning\",\n        \"dish\" : \"French Omelette\"\n      },\n      {\n        \"text\" : \"In the afternoon\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"In the evening\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm never productive\",\n        \"dish\" : \"Scrambled Egg\"\n      }\n    ]\n  },\n  {\n    \"id\" : 2,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"What is your primary vice?\",\n    \"answers\" : [\n      {\n        \"text\" : \"I'm a drinker\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm a gambler\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"I'm a smoker\",\n        \"dish\" : \"French Omelette\"\n      },\n      {\n        \"text\" : \"I'm a stoner\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"I haven no vice\",\n        \"dish\" : \"Poached Egg\"\n      },\n      {\n        \"text\" : \"I can't decide what my biggest vice is\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  }\n]\n";
+  else quizJSON = "[\n  {\n    \"id\" : 0,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"Which skill would you rather have a mastery of?\",\n    \"answers\" : [\n      {\n        \"text\" : \"Running\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"High wire walking\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"Gourmet cooking\",\n        \"dish\" : \"French Omelette\"\n      },\n      {\n        \"text\" : \"Speed chugging a beer\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I already know everything I want to know\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"I don't know\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  },\n  {\n    \"id\" : 1,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"When are you most productive?\",\n    \"answers\" : [\n      {\n        \"text\" : \"In the morning\",\n        \"dish\" : \"French Omelette\"\n      },\n      {\n        \"text\" : \"In the afternoon\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"In the evening\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm never productive\",\n        \"dish\" : \"Scrambled Egg\"\n      }\n    ]\n  },\n  {\n    \"id\" : 2,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"What is your primary vice?\",\n    \"answers\" : [\n      {\n        \"text\" : \"I'm a drinker\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"I'm a gambler\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"I'm a smoker\",\n        \"dish\" : \"French Omelette\"\n      },\n      {\n        \"text\" : \"I'm a stoner\",\n        \"dish\" : \"Fried Egg\"\n      },\n      {\n        \"text\" : \"I haven no vice\",\n        \"dish\" : \"Poached Egg\"\n      },\n      {\n        \"text\" : \"I can't decide what my biggest vice is\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  },\n  {\n    \"id\" : 3,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"What would you rather do on a Satruday night?\",\n    \"answers\" : [\n      {\n        \"text\" : \"At a bit party\",\n        \"dish\" : \"Scrambled Egg\"\n      },\n      {\n        \"text\" : \"Planning a bank heist\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"Smoking cigarettes outside of a cafe\",\n        \"dish\" : \"French Omelette\"\n      },\n      {\n        \"text\" : \"Sitting on a bar stool\",\n        \"dish\" : \"Pickled Egg\"\n      }\n    ]\n  },\n  {\n    \"id\" : 4,\n    \"type\" : \"multi-choice\",\n    \"question\" : \"A fight is breaking out, what weapon do you have on hand?\",\n    \"answers\" : [\n      {\n        \"text\" : \"A pool cue\",\n        \"dish\" : \"Pickled Egg\"\n      },\n      {\n        \"text\" : \"A cooking knife\",\n        \"dish\" : \"French Omelette\"\n      },\n      {\n        \"text\" : \"A poisoinous syringe\",\n        \"dish\" : \"Deviled Egg\"\n      },\n      {\n        \"text\" : \"My fists\",\n        \"dish\" : \"Hard Boiled Egg\"\n      },\n      {\n        \"text\" : \"I do not fight\",\n        \"dish\" : \"Egg Salad\"\n      }\n    ]\n  }\n]\n";
   const quizContent = JSON.parse(quizJSON);
   const questionPanel = document.querySelector("#main-form");
   const nextButton = document.querySelector("input[name=\"next\"]");
@@ -201,7 +209,10 @@ function main() {
     e.preventDefault();
     cycle.detectAnswer(quizContent, quizContent.length - 1);
     cycle.saveQuiz(quizContent);
-    window.location.href = result;
+    const completed = cycle.validate(quizContent);
+    if (completed.total - completed.answered > 2)
+      alert ("Can only skip up to 2 questions. Please go back and answer some more.");
+    else window.location.href = result;
   });
 
   rsetButton.addEventListener("click", function() {
@@ -232,7 +243,6 @@ function parseQuestion(question) {
 
   switch(question.type) {
     case "multi-choice":
-      // console.log(question);
       if (question.answer === undefined)
         questionHTML.appendChild(multiChoice(question.answers, question.id));
       else
@@ -241,7 +251,6 @@ function parseQuestion(question) {
         );
       break;
     default:
-      console.log("Quesion is of an unknown type.");
       return null;
   }
 
@@ -266,11 +275,7 @@ function multiChoice(answers, n, answer = -1) {
     inputHTML.setAttribute("name", "question-" + n);
     inputHTML.setAttribute("value", i);
 
-    console.log("index: " + i);
-    console.log("stored answer: " + answer);
-
     if (answer > -1 && answer == i) { // note the `==` for coercion
-      console.log("match");
       inputHTML.setAttribute("checked", "true");
     } else {
 
