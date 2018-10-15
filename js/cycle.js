@@ -4,7 +4,8 @@ module.exports = {
   prevQuestion : prevQuestion,
   detectAnswer : detectAnswer,
   saveQuiz : saveQuiz,
-  loadQuiz : loadQuiz
+  loadQuiz : loadQuiz,
+  deleteSave : deleteSave
 }
 
 /*
@@ -65,6 +66,10 @@ function loadQuiz() {
   const save = localStorage.getItem("savedQuiz");
   if (save) return localStorage.getItem("savedQuiz");
   else return null;
+}
+
+function deleteSave() {
+  localStorage.removeItem("savedQuiz");
 }
 
 /*

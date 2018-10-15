@@ -5,7 +5,8 @@ module.exports = {
   prevQuestion : prevQuestion,
   detectAnswer : detectAnswer,
   saveQuiz : saveQuiz,
-  loadQuiz : loadQuiz
+  loadQuiz : loadQuiz,
+  deleteSave : deleteSave
 }
 
 /*
@@ -66,6 +67,10 @@ function loadQuiz() {
   const save = localStorage.getItem("savedQuiz");
   if (save) return localStorage.getItem("savedQuiz");
   else return null;
+}
+
+function deleteSave() {
+  localStorage.removeItem("savedQuiz");
 }
 
 /*
@@ -175,8 +180,9 @@ function result() {
   const resultSpan = document.getElementById("result");
   const answers = {};
   const leadingVowel = /^[aeiou]/;
+  const resetButton = document.getElementById("reset");
   let max = 0;
-  let finalResult;
+  let finalResult = "Raw Egg";
   let leadingString;
   let finalImg;
   let finalImgPath;
@@ -201,12 +207,18 @@ function result() {
   }
 
   leadingString = leadingVowel.test(finalResult.toLowerCase()) ? "n " : " ";
-  resultSpan.innerText = leadingString + finalResult;
+  resultSpan.innerHTML = leadingString + finalResult;
   finalImgPath = "img/" +
     finalResult.split(" ").join("-").toLowerCase() +
     ".jpg";
   finalImg = document.querySelector(`img[src="${finalImgPath}"]`);
   finalImg.removeAttribute("hidden");
+
+  resetButton.addEventListener("click", function() {
+    cycle.deleteSave();
+    location.assign("index.html");
+
+  });
 
   console.log(finalImg);
 }

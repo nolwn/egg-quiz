@@ -12,6 +12,7 @@ function main() {
   const nextButton = document.querySelector("input[name=\"next\"]");
   const prevButton = document.querySelector("input[name=\"prev\"]");
   const subtButton = document.querySelector("input[type=\"submit\"]");
+  const rsetButton = document.getElementById("reset");
   const result = "result.html";
 
   for (let i = 0; i < quizContent.length; i++) {
@@ -21,14 +22,21 @@ function main() {
   nextButton.addEventListener("click", function() {
     cycle.nextQuestion(quizContent);
   });
+
   prevButton.addEventListener("click", function() {
     cycle.prevQuestion(quizContent);
   });
+
   subtButton.addEventListener("click", function(e) {
     e.preventDefault();
     cycle.detectAnswer(quizContent, quizContent.length - 1);
     cycle.saveQuiz(quizContent);
     window.location.href = result;
+  });
+
+  rsetButton.addEventListener("click", function() {
+    cycle.deleteSave();
+    window.location.reload(true);
   });
 
   cycle.initialize(quizContent);

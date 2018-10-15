@@ -9,6 +9,12 @@
 #pagination {
   display: inline-block;
 }
+
+#reset {
+  margin:0px;
+  border-radius: 0px;
+}
+
 .page-marker {
   color: white;
   font-size: 15px;
