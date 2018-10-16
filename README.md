@@ -1,8 +1,20 @@
 # Egg Quiz
 
-The egg quiz is a personality quiz that matches your personality to an egg preparation.
+The egg quiz is a personality quiz which matches your personality to an egg preparation.
 
-## Installation
+## Getting Started
+
+### Prerequisites
+
+This project uses Node npm, you will need to install that before proceeding with the installation instruction below
+
+https://nodejs.org/en/download/
+
+#### With Homebrew
+
+`brew install node`
+
+### Installation
 
 The installation instructions describe installing the package so that you can make your own changes to it.
 
