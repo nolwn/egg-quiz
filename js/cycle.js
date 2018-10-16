@@ -162,6 +162,7 @@ function getBookmark(quiz) {
       return quiz[question].id;
     }
   }
+  quiz[0].bookmark = true;
   return 0;
 }
 
@@ -248,6 +249,7 @@ function paginate(quiz) {
       page.innerText = "✔︎";
     } else {
       page.innerText = i + 1;
+      if (el.bookmark) page.classList.add("active-page");
     }
     pages.appendChild(page);
     pageButtons.insertBefore(pages, nextButton);
